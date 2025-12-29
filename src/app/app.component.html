@@ -1,67 +1,20 @@
-<div class="app-container">
-  <header class="header">
-    <h1>📋 Task Manager</h1>
-    <p>Stay organized, stay productive 🚀</p>
-  </header>
+<footer class="bg-dark text-white py-3  header">
+  <div class="container">
+    <div class="row text-center">
 
-  <!-- Form -->
-  <form [formGroup]="todoForm" (ngSubmit)="submitTask()" class="todo-form">
-    <input formControlName="title" placeholder="Task title" />
-    <textarea formControlName="description" placeholder="Description"></textarea>
-    <div class="form-row">
-      <input type="date" formControlName="dueDate" required/>
-      <select formControlName="priority">
-        <option value="high">🔴 High</option>
-        <option value="medium">🟡 Medium</option>
-        <option value="low">🟢 Low</option>
-      </select>
-    </div>
-    <button type="submit" class="btn-submit">
-      {{ editing ? 'Update Task ✏️' : 'Add Task ➕' }}
-    </button>
-  </form>
+      <div class="col-12 col-md-6 mb-2 mb-md-0">
+        <a routerLink="/" class="text-white text-decoration-none mx-3">
+          <i class="bi bi-house-door"></i> Home
+        </a>
+      </div>
 
-  <!-- Filters -->
-  <div class="controls">
-    <div class="filters">
-      <button [class.active]="activeFilter==='all'" (click)="setFilter('all')">All ({{ totalCount }})</button>
-      <button [class.active]="activeFilter==='today'" (click)="setFilter('today')">Today ({{ todayCount }})</button>
-      <button [class.active]="activeFilter==='overdue'" (click)="setFilter('overdue')">Overdue ({{ overdueCount }})</button>
-      <button [class.active]="activeFilter==='completed'" (click)="setFilter('completed')">Completed</button>
-    </div>
-    <div class="sort">
-      <select [(ngModel)]="sortBy" (change)="filteredTodos$ = getFilteredAndSortedTodos()" id="sortby">
-        <option value="priority">Priority</option>
-        <option value="createdAt">Newest</option>
-        <option value="dueDate">Due Date</option>
-        <option value="title">Title</option>
-      </select>
+      <div class="col-12 col-md-6">
+        <a routerLink="login" class="text-white text-decoration-none mx-3">
+          <i class="bi bi-box-arrow-in-right"></i> Login
+        </a>
+      </div>
+
     </div>
   </div>
-
-  <!-- Task Cards -->
-  <div class="tasks-grid">
-    <div *ngFor="let todo of filteredTodos$ | async; trackBy: trackByTodo" 
-         class="task-card" 
-         [class.completed]="todo.completed"
-         [class.overdue]="isOverdue(todo)">
-      <div class="task-header">
-        <h3>{{ todo.title }}</h3>
-        <span class="priority-badge" [ngClass]="getPriorityClass(todo.priority)">
-          {{ todo.priority | titlecase }}
-        </span>
-      </div>
-      <p *ngIf="todo.description">{{ todo.description }}</p>
-      <div class="task-meta">
-        <span *ngIf="todo.dueDate">📅 {{ todo.dueDate }}</span>
-      </div>
-      <div class="task-actions">
-        <button (click)="toggleComplete(todo.id)">
-          {{ todo.completed ? '✅ Undo' : '✔️ Complete' }}
-        </button>
-        <button (click)="openEditTask(todo.id)">✏️ Edit</button>
-        <button (click)="deleteTodo(todo.id)" class="btn-danger">🗑 Delete</button>
-      </div>
-    </div>
-  </div>
-</div>
+</footer>
+<router-outlet></router-outlet>
